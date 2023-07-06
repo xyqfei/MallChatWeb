@@ -39,6 +39,9 @@ const props = defineProps({
   },
 })
 
+// 多根元素的时候，不加这个透传属性会报 warning
+defineOptions({ inheritAttrs: false })
+
 const { message, fromUser } = toRefs(props.msg)
 
 const userStore = useUserStore()
@@ -131,6 +134,7 @@ onMounted(() => {
             effect="dark"
             :content="badgeInfo?.describe"
             :placement="isCurrentUser ? 'top-end' : 'top-start'"
+            :teleported="false"
           >
             <img v-show="badgeInfo?.img" class="user-badge" :src="badgeInfo?.img" />
           </el-tooltip>
